@@ -7,5 +7,5 @@ Gem::Specification.new do |s|
   s.authors = ['Piotr Żurek']
   s.email = 'piotr@sology.eu'
   s.files = ['lib/icc_parser.rb']
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = '>= 1.9.3'
 end
