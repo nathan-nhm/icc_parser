@@ -1,21 +1,15 @@
 #http://www.color.org/icc-book1.PDF B-245
 #https://github.com/LuaDist/lcms/blob/master/include/icc34.h
 #http://www.color.org/profileinspector.xalter
+#https://www.color.org/icc32.pdf
 
 class IccParser
   
-  def self.parse_path icc_profile
-    if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
-      #rails way is SLOW in win32
-      IO.popen("cat \"#{icc_profile}\"", "rb") do |io|
-        self.parse_string io.readlines.join("")
-      end
-    else
-      self.parse_string IO.binread(icc_profile, File.size(icc_profile))
-    end
+  def self.parse_path( icc_profile )
+    self.parse_string IO.binread(icc_profile, File.size(icc_profile))
   end
   
-  def self.parse_string icc_profile
+  def self.parse_string( icc_profile )
   
     ret = {}
     ret[:size] =             icc_profile[0..3].unpack('L>').first                        #ok
@@ -42,7 +36,7 @@ class IccParser
     pos = 127 # End of header
     tagnum = icc_profile[128..131].unpack("C*").inject { |r, n| r << 8 | n }
     pos = 132
-    ret[:tags] = {}
+    tags = {}
     for i in 1..tagnum
       name = icc_profile[pos..pos+3]
       offset = icc_profile[pos+4..pos+7].unpack("C*").inject { |r, n| r << 8 | n }
@@ -117,10 +111,12 @@ class IccParser
           icc_profile[offset..offset+size]
         end
       end
-      ret[:tags][name.to_sym] = value
+      tags[name.to_sym] = value
       pos += 12
     end
-    return ret
+    
+    ret["tags"] = OpenStruct.new(tags)
+    return OpenStruct.new(ret)
   end
   
 # .unpack('C*') 8 bit array match all
