@@ -6,6 +6,6 @@ Gem::Specification.new do |s|
   s.description = "A simple Ruby parser for ICC profiles"
   s.authors = ['Piotr Żurek']
   s.email = 'piotr@sology.eu'
-  s.files = ['lib/icc_parser.rb']
+  s.files = ['lib/icc_parser.rb','LICENSE','README.md','icc_parser.gemspec']
   s.required_ruby_version = '>= 1.9.3'
 end
