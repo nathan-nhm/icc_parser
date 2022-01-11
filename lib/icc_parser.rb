@@ -18,8 +18,10 @@ class IccParser
     ret[:device_class] =     icc_profile[12..15].encode('utf-8')                         #ok
     ret[:color_space] =      icc_profile[16..19].encode('utf-8')                         #ok
     ret[:pcs] =              icc_profile[20..23].encode('utf-8')                         #ok
+    ret[:date] = nil
     begin
       ret[:date] =             DateTime.new( *icc_profile[24..35].unpack("n*") )         #ok
+    rescue
     end
 
     ret[:magic] =            icc_profile[36..39].encode('utf-8')                         #ok
