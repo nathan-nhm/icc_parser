@@ -1,0 +1,25 @@
+---
+AllCops:
+  TargetRubyVersion: 3.1
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Style/CommandLiteral:
+  EnforcedStyle: percent_x
+Style/RegexpLiteral:
+  EnforcedStyle: percent_r
+Style/FormatString:
+  EnforcedStyle: percent
+Style/DoubleNegation:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
