@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'icc_parser'
-  s.version = '0.3'
+  s.version = '0.5'
   s.licenses = ['MIT']
   s.summary = 'Ruby ICC Profile Parser'
   s.description = 'A simple Ruby parser for ICC profiles'
