@@ -55,7 +55,7 @@ class IccParser
           end
         when 'desc'
           textsize = icc_profile[offset + 10..offset + 11].unpack('S>').first
-          icc_profile[offset + 12..offset + 10 + textsize].encode('utf-8').strip
+          icc_profile[offset + 12..offset + 10 + textsize].encode('utf-8').gsub(/[\u0000-\u001F\u007F-\u009F]/, ' ').strip
         else
           case icc_profile[offset..offset + 3]
           when 'mft1' # icSigLut8Type
@@ -98,7 +98,7 @@ class IccParser
             { dtim: DateTime.new(*icc_profile[offset + 8..offset + 19].unpack('n*')) }
           when 'desc'
             textsize = icc_profile[offset + 10..offset + 11].unpack('S>').first
-            { desc: icc_profile[offset + 12..offset + 10 + textsize].encode('utf-8').strip }
+            { desc: icc_profile[offset + 12..offset + 10 + textsize].encode('utf-8').gsub(/[\u0000-\u001F\u007F-\u009F]/, ' ').strip }
           when 'XYZ '
             { "XYZ " => icc_profile[offset + 8..offset + size].unpack('s>*').each_slice(3).collect do |a|
                         { x: a[0], y: a[1], z: a[2] }
